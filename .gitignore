@@ -19,7 +19,7 @@
 .env.production.local
 
 # IDEs and editors
-/.idea
+
 
 npm-debug.log*
 yarn-debug.log*
