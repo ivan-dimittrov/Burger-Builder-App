@@ -15,13 +15,18 @@ const buildControls = (props: any) => {
             <p>Price: <strong>{props.price.toFixed(2)}</strong></p>
             {controls.map(ctrl => {
                 return <BuildControl
-                    key={ctrl.label}
-                    label={ctrl.label}
-                    added={() => props.ingredientAdded(ctrl.type)}
-                    removed={() => props.ingredientRemoved(ctrl.type)}
+                    key       = {ctrl.label}
+                    label     = {ctrl.label}
+                    added     = {() => props.ingredientAdded(ctrl.type)}
+                    removed   = {() => props.ingredientRemoved(ctrl.type)}
                 />
             })}
-            <button className='OrderButton' disabled={!props.purchasable}>ORDER NOW</button>
+            <button
+                className='OrderButton'
+                disabled={!props.purchasable}
+                onClick={() => props.showModal()}>
+                ORDER NOW
+            </button>
         </div>
     );
 };

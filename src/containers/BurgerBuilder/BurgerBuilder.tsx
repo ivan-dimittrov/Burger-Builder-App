@@ -2,6 +2,8 @@ import React         from 'react';
 import Aux           from '../../hoc/_Aux/_Aux'
 import Burger        from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import Modal         from '../../components/UI/Modal/Modal'
+import OrderSummary         from '../../components/Burger/OrderSummary/OrderSummary'
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -12,6 +14,11 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends React.Component {
 
+    constructor(props: any) {
+        super(props);
+        document.addEventListener('keydown', this.handleEscapePress);
+    }
+
     state = {
         ingredients: {
             salad: 0,
@@ -20,7 +27,8 @@ class BurgerBuilder extends React.Component {
             meat: 0,
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        showModal: false
     };
 
     public updatePurchaseState(updatedIngredients: any) {
@@ -68,16 +76,34 @@ class BurgerBuilder extends React.Component {
         }
     };
 
+    public purchaseHandler =() => {
+        this.setState({showModal: true});
+    };
+
+    public handleEscapePress = (e: any): void => {
+        if (e.keyCode === 27) {
+            this.closeModal();
+        }
+    };
+
+    public closeModal = () =>{
+        this.setState({showModal:false});
+    };
+
 
     public render () {
         return (
             <Aux>
+                <Modal showModal={this.state.showModal} closeModal={this.closeModal}>
+                    <OrderSummary ingredients={this.state.ingredients}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
-                    ingredientAdded={this.addIngredient}
-                    ingredientRemoved={this.removeIngredient}
-                    price={this.state.totalPrice}
-                    purchasable={this.state.purchasable}/>
+                    ingredientAdded   = {this.addIngredient}
+                    ingredientRemoved = {this.removeIngredient}
+                    price             = {this.state.totalPrice}
+                    purchasable       = {this.state.purchasable}
+                    showModal         = {this.purchaseHandler}/>
             </Aux>
 
         );
