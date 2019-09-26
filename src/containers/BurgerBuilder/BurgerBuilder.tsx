@@ -31,6 +31,10 @@ class BurgerBuilder extends React.Component {
         showModal: false
     };
 
+    public componentWillUnmount(): void {
+        document.removeEventListener('keydown', this.handleEscapePress);
+    }
+
     public updatePurchaseState(updatedIngredients: any) {
         const sum = Object.keys(updatedIngredients).map(ingredientsKey => {
             // @ts-ignore
@@ -90,12 +94,20 @@ class BurgerBuilder extends React.Component {
         this.setState({showModal:false});
     };
 
+    public purchaseContinueHandler = () =>{
+        alert('You continue');
+    };
 
     public render () {
         return (
             <Aux>
                 <Modal showModal={this.state.showModal} closeModal={this.closeModal}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        closeModal={this.closeModal}
+                        continue={this.purchaseContinueHandler}
+                        price={this.state.totalPrice.toFixed(2)}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
@@ -103,7 +115,8 @@ class BurgerBuilder extends React.Component {
                     ingredientRemoved = {this.removeIngredient}
                     price             = {this.state.totalPrice}
                     purchasable       = {this.state.purchasable}
-                    showModal         = {this.purchaseHandler}/>
+                    showModal         = {this.purchaseHandler}
+                />
             </Aux>
 
         );
