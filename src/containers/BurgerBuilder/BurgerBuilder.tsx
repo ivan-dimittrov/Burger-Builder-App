@@ -96,6 +96,7 @@ class BurgerBuilder extends React.Component {
 
     public purchaseContinueHandler = () =>{
         alert('You continue');
+        this.closeModal();
     };
 
     public render () {
