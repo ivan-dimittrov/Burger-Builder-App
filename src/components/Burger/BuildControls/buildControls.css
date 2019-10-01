@@ -1,5 +1,5 @@
 .buildControls {
-    width: 100%;
+    width: auto;
     background-color: #CF8F2E;
     display: flex;
     flex-flow: column;
@@ -47,5 +47,11 @@
     }
     100% {
         transform: scale(1);
+    }
+}
+
+@media (min-width: 500px) {
+    .buildControls {
+        width: 100%;
     }
 }
