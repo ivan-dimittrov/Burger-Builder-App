@@ -19,7 +19,6 @@ class Layout extends React.Component<ILayoutProps,ILayoutState> {
     };
 
     public sideDrawerCloseHandler = () => {
-        console.log(1212121);
         this.setState({showSideDrawer: false})
     };
 
